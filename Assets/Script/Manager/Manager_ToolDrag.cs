@@ -38,9 +38,9 @@ public class Manager_ToolDrag : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && m_TargetGameObject.layer != 5)
         {
-            if (m_Dragging && m_ModifierShader.m_ObjectToolState != ObjectToolState.CanNotBePlaced)
+            if (m_Dragging && m_ModifierShader.m_ObjectToolState != ObjectToolState.CanNotBePlaced && m_TargetGameObject.layer != 5)
             {
                 m_ModifierShader.m_ObjectToolState = ObjectToolState.Placed;
                 m_TargetGameObject.transform.localScale = Vector3.one;
@@ -62,7 +62,8 @@ public class Manager_ToolDrag : MonoBehaviour {
         }
         if (Input.GetMouseButtonUp(1) && m_Dragging)
         {
-            m_TargetGameObject.transform.Rotate(new Vector3(0, 90, 0));
+            if (m_TargetGameObject.GetComponent<ObjectTool_ModifShader>() != null)
+                m_TargetGameObject.GetComponent<ObjectTool_ModifShader>().m_MainVisual.transform.Rotate(new Vector3(0, 90, 0));
         }
 
 
@@ -81,8 +82,15 @@ public class Manager_ToolDrag : MonoBehaviour {
             {
                 if (m_CanChangeTarget)
                 {
-                    m_TargetGameObject = _hit.collider.gameObject.transform.root.gameObject;
-                    m_ModifierShader = m_TargetGameObject.GetComponent<ObjectTool_ModifShader>();
+                    if (_hit.collider.gameObject.layer != 5)
+                    {
+                        m_TargetGameObject = _hit.collider.gameObject.transform.root.gameObject;
+                        m_ModifierShader = m_TargetGameObject.GetComponent<ObjectTool_ModifShader>();
+                    }
+                    else
+                    {
+                        m_TargetGameObject = _hit.collider.gameObject;
+                    }
                 }
             }
         }

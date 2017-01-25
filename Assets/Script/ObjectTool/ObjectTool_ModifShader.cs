@@ -13,13 +13,15 @@ public class ObjectTool_ModifShader : MonoBehaviour {
 
     public ObjectToolState m_ObjectToolState;
 
-    public GameObject m_Visual;
+    //public GameObject m_ObjectWithShader;
+    public GameObject m_MainVisual;
 
     Material[] m_MaterialsArray;
 
     void Update()
     {
-       m_MaterialsArray = m_Visual.GetComponent<Renderer>().materials;
+        //m_MaterialsArray = m_MainVisual.GetComponentInChildren<Renderer>().materials;
+        //m_ObjectWithShader.GetComponent<Renderer>().materials;
     }
 
 	public void StartCoroutine()
@@ -39,51 +41,68 @@ public class ObjectTool_ModifShader : MonoBehaviour {
             switch (m_ObjectToolState)
             {
                 case ObjectToolState.Placed:
-                    m_MaterialsArray[0].SetFloat("_Pose", 0);
-                    m_MaterialsArray[0].SetFloat("_Isclipping", 0);
 
-                    if (m_MaterialsArray.Length > 1)
+                    foreach (Transform child in m_MainVisual.transform)
                     {
-                        m_MaterialsArray[2].SetFloat("_Pose", 0);
-                        m_MaterialsArray[2].SetFloat("_Isclipping", 0);
+                        if (child.GetComponent<Renderer>() != null)
+                        {
+                            m_MaterialsArray = child.GetComponent<Renderer>().materials;
 
-                        m_MaterialsArray[1].SetFloat("_Pose", 0);
-                        m_MaterialsArray[1].SetFloat("_Isclipping", 0);
+                            for (int i = 0; i < m_MaterialsArray.Length; i++)
+                            {
+                                m_MaterialsArray[i].SetFloat("_Pose", 0);
+                                m_MaterialsArray[i].SetFloat("_Isclipping", 0);
+                            }
+
+                            child.GetComponent<Renderer>().materials = m_MaterialsArray;
+                        }
                     }
+       
                     break;
 
                 case ObjectToolState.CanBePlaced:
-                    m_MaterialsArray[0].SetFloat("_Pose", 1);
-                    m_MaterialsArray[0].SetFloat("_Isclipping", 0);
 
-                    if (m_MaterialsArray.Length > 1)
+                    foreach (Transform child in m_MainVisual.transform)
                     {
-                        m_MaterialsArray[2].SetFloat("_Pose", 1);
-                        m_MaterialsArray[2].SetFloat("_Isclipping", 0);
+                        if (child.GetComponent<Renderer>() != null)
+                        {
+                            m_MaterialsArray = child.GetComponent<Renderer>().materials;
 
-                        m_MaterialsArray[1].SetFloat("_Pose", 1);
-                        m_MaterialsArray[1].SetFloat("_Isclipping", 0);
+                            for (int i = 0; i < m_MaterialsArray.Length; i++)
+                            {
+                                m_MaterialsArray[i].SetFloat("_Pose", 1);
+                                m_MaterialsArray[i].SetFloat("_Isclipping", 0);
+                            }
+
+                            child.GetComponent<Renderer>().materials = m_MaterialsArray;
+                        }
                     }
 
                     break;
 
                 case ObjectToolState.CanNotBePlaced:
-                    m_MaterialsArray[0].SetFloat("_Pose", 1);
-                    m_MaterialsArray[0].SetFloat("_Isclipping", 1);
 
-                    if (m_MaterialsArray.Length > 1)
+                    foreach (Transform child in m_MainVisual.transform)
                     {
-                        m_MaterialsArray[2].SetFloat("_Pose", 1);
-                        m_MaterialsArray[2].SetFloat("_Isclipping", 1);
+                        if (child.GetComponent<Renderer>() != null)
+                        {
+                            m_MaterialsArray = child.GetComponent<Renderer>().materials;
 
-                        m_MaterialsArray[1].SetFloat("_Pose", 1);
-                        m_MaterialsArray[1].SetFloat("_Isclipping", 1);
+                            for (int i = 0; i < m_MaterialsArray.Length; i++)
+                            {
+                                m_MaterialsArray[i].SetFloat("_Pose", 1);
+                                m_MaterialsArray[i].SetFloat("_Isclipping", 1);
+                            }
+
+                            child.GetComponent<Renderer>().materials = m_MaterialsArray;
+                        }
                     }
 
                     break;
             }
 
-            m_Visual.GetComponent<Renderer>().materials = m_MaterialsArray;
+
+           
 
             yield return new WaitForEndOfFrame();
         }
