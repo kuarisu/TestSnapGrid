@@ -1,37 +1,47 @@
 fileFormatVersion: 2
 guid: 35e45ff14a201c844b4dd5adbfc72ff7
-timeCreated: 1485336040
+timeCreated: 1485460985
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: cadre
     100002: guidon
-    100004: pedales
-    100006: roues
-    100008: selle
-    100010: //RootNode
+    100004: pedale
+    100006: pedale2
+    100008: Roue2
+    100010: Roues
+    100012: selle
+    100014: //RootNode
     400000: cadre
     400002: guidon
-    400004: pedales
-    400006: roues
-    400008: selle
-    400010: //RootNode
+    400004: pedale
+    400006: pedale2
+    400008: Roue2
+    400010: Roues
+    400012: selle
+    400014: //RootNode
     2300000: cadre
     2300002: guidon
-    2300004: pedales
-    2300006: roues
-    2300008: selle
+    2300004: pedale
+    2300006: pedale2
+    2300008: Roue2
+    2300010: Roues
+    2300012: selle
     3300000: cadre
     3300002: guidon
-    3300004: pedales
-    3300006: roues
-    3300008: selle
+    3300004: pedale
+    3300006: pedale2
+    3300008: Roue2
+    3300010: Roues
+    3300012: selle
     4300000: cadre
-    4300002: roues
+    4300002: Roues
     4300004: selle
-    4300006: pedales
+    4300006: pedale
     4300008: guidon
+    4300010: Roue2
+    4300012: pedale2
     9500000: //RootNode
   materials:
     importMaterials: 1

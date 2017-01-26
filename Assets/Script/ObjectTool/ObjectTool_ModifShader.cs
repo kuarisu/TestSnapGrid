@@ -44,10 +44,28 @@ public class ObjectTool_ModifShader : MonoBehaviour {
 
                     foreach (Transform child in m_MainVisual.transform)
                     {
-                        if(child.transform.childCount > 0)
+                        if (child.transform.childCount > 0)
                         {
                             foreach (Transform secondchild in child.transform)
                             {
+                                if (secondchild.transform.childCount > 0)
+                                {
+                                    foreach (Transform thirdChild in secondchild.transform)
+                                    {
+                                        if (thirdChild.GetComponent<Renderer>() != null)
+                                        {
+                                            m_MaterialsArray = thirdChild.GetComponent<Renderer>().materials;
+
+                                            for (int i = 0; i < m_MaterialsArray.Length; i++)
+                                            {
+                                                m_MaterialsArray[i].SetFloat("_Pose", 0);
+                                                m_MaterialsArray[i].SetFloat("_Isclipping", 0);
+                                            }
+
+                                            thirdChild.GetComponent<Renderer>().materials = m_MaterialsArray;
+                                        }
+                                    }
+                                }
                                 if (secondchild.GetComponent<Renderer>() != null)
                                 {
                                     m_MaterialsArray = secondchild.GetComponent<Renderer>().materials;
@@ -75,11 +93,10 @@ public class ObjectTool_ModifShader : MonoBehaviour {
                             child.GetComponent<Renderer>().materials = m_MaterialsArray;
                         }
                     }
-       
+
                     break;
 
                 case ObjectToolState.CanBePlaced:
-
 
                     foreach (Transform child in m_MainVisual.transform)
                     {
@@ -87,6 +104,24 @@ public class ObjectTool_ModifShader : MonoBehaviour {
                         {
                             foreach (Transform secondchild in child.transform)
                             {
+                                if (secondchild.transform.childCount > 0)
+                                {
+                                    foreach (Transform thirdChild in secondchild.transform)
+                                    {
+                                        if (thirdChild.GetComponent<Renderer>() != null)
+                                        {
+                                            m_MaterialsArray = thirdChild.GetComponent<Renderer>().materials;
+
+                                            for (int i = 0; i < m_MaterialsArray.Length; i++)
+                                            {
+                                                m_MaterialsArray[i].SetFloat("_Pose", 1);
+                                                m_MaterialsArray[i].SetFloat("_Isclipping", 0);
+                                            }
+
+                                            thirdChild.GetComponent<Renderer>().materials = m_MaterialsArray;
+                                        }
+                                    }
+                                }
                                 if (secondchild.GetComponent<Renderer>() != null)
                                 {
                                     m_MaterialsArray = secondchild.GetComponent<Renderer>().materials;
@@ -107,7 +142,7 @@ public class ObjectTool_ModifShader : MonoBehaviour {
 
                             for (int i = 0; i < m_MaterialsArray.Length; i++)
                             {
-                                m_MaterialsArray[i].SetFloat("_Pose", 1);
+                                m_MaterialsArray[i].SetFloat("_Pose",1);
                                 m_MaterialsArray[i].SetFloat("_Isclipping", 0);
                             }
 
@@ -115,17 +150,34 @@ public class ObjectTool_ModifShader : MonoBehaviour {
                         }
                     }
 
+
                     break;
 
                 case ObjectToolState.CanNotBePlaced:
-
-
                     foreach (Transform child in m_MainVisual.transform)
                     {
                         if (child.transform.childCount > 0)
                         {
                             foreach (Transform secondchild in child.transform)
                             {
+                                if (secondchild.transform.childCount > 0)
+                                {
+                                    foreach (Transform thirdChild in secondchild.transform)
+                                    {
+                                        if (thirdChild.GetComponent<Renderer>() != null)
+                                        {
+                                            m_MaterialsArray = thirdChild.GetComponent<Renderer>().materials;
+
+                                            for (int i = 0; i < m_MaterialsArray.Length; i++)
+                                            {
+                                                m_MaterialsArray[i].SetFloat("_Pose", 1);
+                                                m_MaterialsArray[i].SetFloat("_Isclipping", 1);
+                                            }
+
+                                            thirdChild.GetComponent<Renderer>().materials = m_MaterialsArray;
+                                        }
+                                    }
+                                }
                                 if (secondchild.GetComponent<Renderer>() != null)
                                 {
                                     m_MaterialsArray = secondchild.GetComponent<Renderer>().materials;
@@ -153,6 +205,7 @@ public class ObjectTool_ModifShader : MonoBehaviour {
                             child.GetComponent<Renderer>().materials = m_MaterialsArray;
                         }
                     }
+
 
                     break;
             }

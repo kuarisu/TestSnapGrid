@@ -81,7 +81,6 @@ public class MachineFor : MonoBehaviour {
                 switch (nomElement)
                 {
                     case "pedale":
-                        Debug.Log("premiere etape");
                         ((Velo)carcasse.GetMateriau()).SetPedale(nbAssemblage);
                         if (((Velo)carcasse.GetMateriau()).GetPedale() > 2)
                         {
@@ -91,7 +90,6 @@ public class MachineFor : MonoBehaviour {
                         else
                         {
                             DepartCarca();
-                            Debug.Log("seconde etape");
                         }
                         break;
                     case "roue":
