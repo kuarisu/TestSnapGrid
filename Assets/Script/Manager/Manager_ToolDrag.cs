@@ -63,7 +63,15 @@ public class Manager_ToolDrag : MonoBehaviour {
         if (Input.GetMouseButtonUp(1) && m_Dragging)
         {
             if (m_TargetGameObject.GetComponent<ObjectTool_ModifShader>() != null)
+            {
                 m_TargetGameObject.GetComponent<ObjectTool_ModifShader>().m_MainVisual.transform.Rotate(new Vector3(0, 90, 0));
+
+                if (m_TargetGameObject.GetComponent<Object_Rotation>() != null)
+                {
+                    m_TargetGameObject.GetComponent<Object_Rotation>().m_NbRotation++;
+                    m_TargetGameObject.GetComponent<Object_Rotation>().Rotated();
+                }
+            }
         }
 
 
