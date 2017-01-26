@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class MachineStart : MonoBehaviour {
 
-    public int choix = 0;
+    public enum Choix
+    {
+        Velo,
+        Pedale,
+        Selle,
+        Roue,
+        Cadre,
+        Guidon
+    }
+
+
+    public Choix choix;     
+
     public GameObject carcasseAttache;
 
     private float timer;
@@ -16,17 +28,17 @@ public class MachineStart : MonoBehaviour {
     {
         switch (choix)
         {
-            case 0:
+            case Choix.Velo:
                 return new Velo();
-            case 1:
+            case Choix.Pedale:
                 return new Materiau("pedale");
-            case 2:
+            case Choix.Selle:
                 return new Materiau("selle");
-            case 3:
+            case Choix.Roue:
                 return new Materiau("roue");
-            case 4:
+            case Choix.Cadre:
                 return new Cadre();
-            case 5:
+            case Choix.Guidon:
                 return new Guidon();
             default:
                 return new Velo();

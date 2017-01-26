@@ -5,8 +5,8 @@ using UnityEngine;
 public class Manager_ToolDrag : MonoBehaviour {
 
     public GameObject m_TargetGameObject;
-    bool m_Dragging;
-    ObjectTool_ModifShader m_ModifierShader;
+    public bool m_Dragging;
+    public ObjectTool_ModifShader m_ModifierShader;
     public LayerMask m_LayerMask;
     public bool m_CanChangeTarget;
 

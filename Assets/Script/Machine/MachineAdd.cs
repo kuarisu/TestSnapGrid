@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class MachineAdd : MonoBehaviour {
 
+    private GameObject m_CarcasseGameObject;
+    [SerializeField]
     private CarcasseAConstruire carcasse;
+    [SerializeField]
     private CarcasseAConstruire AAssembler;
     private Vector3 move;
     public int Xdir, Zdir;
-    private Collider coll;
+    public Collider coll;
     Object_Rotation m_ObjectRotationValues;
 
     // Use this for initialization
     void Start () {
         move = new Vector3();
         carcasse = null; AAssembler = null;
-        coll = GetComponent<Collider>();
+        coll = coll.GetComponent<Collider>();
         m_ObjectRotationValues = this.GetComponent<Object_Rotation>();
 	}
 	
@@ -28,111 +31,130 @@ public class MachineAdd : MonoBehaviour {
     {
         Xdir = m_ObjectRotationValues.m_x;
         Zdir = m_ObjectRotationValues.m_z;
-        if (other.GetComponent<CarcasseAConstruire>().GetMateriau().GetTypeObj().Equals("velo"))
+        if (other.transform.root.tag == "Object")
         {
-            if(carcasse == null)
+            if (other.transform.root.GetComponent<CarcasseAConstruire>() != null && other.transform.root.GetComponent<CarcasseAConstruire>().GetMateriau().GetTypeObj().Equals("velo"))
             {
-                Debug.Log("ok");
-                carcasse = other.GetComponent<CarcasseAConstruire>();
-                other.GetComponent<CarcasseAConstruire>().SensDirection(0, 0);
-                other.GetComponent<Rigidbody>().useGravity = false;
-                other.enabled = false; //don't forget -> true
-            }
-            else
-            {
-                Destroy(carcasse.gameObject);
-                Destroy(other.gameObject);
-                carcasse = null;
-            }
-        }else
-        {
-            if (AAssembler == null)
-            {
-                Debug.Log("ok");
-                AAssembler = other.GetComponent<CarcasseAConstruire>();
-                other.GetComponent<CarcasseAConstruire>().SensDirection(0, 0);
-                other.GetComponent<Rigidbody>().useGravity = false;
-                other.enabled = false; //don't forget -> true
-            }
-            else
-            {
-                Destroy(AAssembler.gameObject);
-                Destroy(other.gameObject);
-                AAssembler = null;
-            }
-        }
-        if(carcasse != null && AAssembler != null)
-        {
-            move.Set(Xdir * PlayerInfo.vitesse * Time.deltaTime, 0, Xdir * PlayerInfo.vitesse * Time.deltaTime);
-            switch (AAssembler.GetMateriau().GetTypeObj())
-            {
-                case "pedale":
-                    if (((Velo)carcasse.GetMateriau()).GetPedale() < 2)
-                    {
-                        ((Velo)carcasse.GetMateriau()).SetPedale(1);
-                        DepartCarca();
-                    }
-                    else
-                    {
-                        AssemblageEnTrop();
-                    }
-                    break;
-                case "selle":
-                    if (!((Velo)carcasse.GetMateriau()).Getselle())
-                    {
-                        ((Velo)carcasse.GetMateriau()).SetSelle(true);
-                        DepartCarca();
-                    } else
-                    {
-                        AssemblageEnTrop();
-                    }
-                    break;
-                case "roue":
-                    if (((Velo)carcasse.GetMateriau()).GetRoue() < 2)
-                    {
-                        ((Velo)carcasse.GetMateriau()).SetRoue(1);
-                        DepartCarca();
-                    }else
-                    {
-                        AssemblageEnTrop();
-                    }
-                    break;
-                case "cadre":
-                    if (((Velo)carcasse.GetMateriau()).GetCadre() == null)
-                    {
-                        ((Velo)carcasse.GetMateriau()).SetCadre((Cadre)AAssembler.GetMateriau());
-                        DepartCarca();
-                    }else
-                    {
-                        AssemblageEnTrop();
-                    }
-                    break;
-                case "guidon":
-                    if (((Velo)carcasse.GetMateriau()).GetGuidon() == null)
-                    {
-                        ((Velo)carcasse.GetMateriau()).SetGuidon((Guidon)AAssembler.GetMateriau());
-                        DepartCarca();
-                    }else
-                    {
-                        AssemblageEnTrop();
-                    }
-                    break;
-                    //a inserer la suite
+                if (carcasse == null)
+                {
+                    Debug.Log("ok");
 
+                    m_CarcasseGameObject = other.transform.root.gameObject;
+                    carcasse = other.transform.root.GetComponent<CarcasseAConstruire>();
+                    carcasse.Physic.SetActive(false);
+                    other.transform.root.GetComponent<CarcasseAConstruire>().SensDirection(0, 0);
+                    other.transform.root.GetComponent<Rigidbody>().Sleep();
+                    //other.GetComponent<Rigidbody>().useGravity = false;
+                    other.enabled = false; //don't forget -> true
+                }
+                else
+                {
+                    Debug.Log("ok");
+                    Destroy(carcasse.gameObject);
+                    Destroy(other.gameObject);
+                    carcasse = null;
+                }
+
+            }
+            else
+            {
+                if (AAssembler == null)
+                {
+                    AAssembler = other.transform.root.GetComponent<CarcasseAConstruire>();
+                    other.transform.root.GetComponent<CarcasseAConstruire>().SensDirection(0, 0);
+                    other.transform.root.GetComponent<Rigidbody>().Sleep();
+                    //other.GetComponent<Rigidbody>().useGravity = false;
+                    other.enabled = false; //don't forget -> true
+                }
+                else
+                {
+                    Destroy(AAssembler.gameObject);
+                    Destroy(other.gameObject);
+                    AAssembler = null;
+                }
+            }
+            if (carcasse != null && AAssembler != null)
+            {
+                
+                move.Set(Xdir * PlayerInfo.vitesse * Time.deltaTime, 0, Xdir * PlayerInfo.vitesse * Time.deltaTime);
+
+                Debug.Log(AAssembler.GetMateriau().GetTypeObj());
+                switch (AAssembler.GetMateriau().GetTypeObj())
+                {
+
+                    case "pedale":
+                        if (((Velo)carcasse.GetMateriau()).GetPedale() < 2)
+                        {
+                            ((Velo)carcasse.GetMateriau()).SetPedale(1);
+                            DepartCarca();
+                        }
+                        else
+                        {
+                            AssemblageEnTrop();
+                        }
+                        break;
+                    case "selle":
+                        if (!((Velo)carcasse.GetMateriau()).Getselle())
+                        {
+                            ((Velo)carcasse.GetMateriau()).SetSelle(true);
+                            DepartCarca();
+                        }
+                        else
+                        {
+                            AssemblageEnTrop();
+                        }
+                        break;
+                    case "roue":
+                        if (((Velo)carcasse.GetMateriau()).GetRoue() < 2)
+                        {
+                            ((Velo)carcasse.GetMateriau()).SetRoue(1);
+                            DepartCarca();
+                        }
+                        else
+                        {
+                            AssemblageEnTrop();
+                        }
+                        break;
+                    case "cadre":
+                        if (((Velo)carcasse.GetMateriau()).GetCadre() == null)
+                        {
+                            ((Velo)carcasse.GetMateriau()).SetCadre((Cadre)AAssembler.GetMateriau());
+                            DepartCarca();
+                        }
+                        else
+                        {
+                            AssemblageEnTrop();
+                        }
+                        break;
+                    case "guidon":
+                        Debug.Log("ok");
+                        if (((Velo)carcasse.GetMateriau()).GetGuidon() == null)
+                        {
+                            ((Velo)carcasse.GetMateriau()).SetGuidon((Guidon)AAssembler.GetMateriau());
+                            DepartCarca();
+                        }
+                        else
+                        {
+                            AssemblageEnTrop();
+                        }
+                        break;
+                        //a inserer la suite
+
+                }
             }
         }
     }
 
     private void DepartCarca()
     {
+        Debug.Log("hello");
         Destroy(AAssembler.gameObject);
         AAssembler = null;
         coll.enabled = false;
-        carcasse.GetComponent<Collider>().enabled = true;
-        carcasse.GetComponent<Rigidbody>().useGravity = true;
-        Debug.Log("etape" + Xdir+", "+Zdir);
+        carcasse.Physic.SetActive(true);
+        m_CarcasseGameObject.GetComponent<Rigidbody>().WakeUp();
+        //carcasse.GetComponent<Rigidbody>().useGravity = true;
         carcasse.SensDirection(Xdir, Zdir);
-        Debug.Log("collider = "+carcasse.gameObject.GetComponent<Collider>().enabled);
         carcasse = null;
     }
 

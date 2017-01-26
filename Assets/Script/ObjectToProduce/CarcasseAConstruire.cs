@@ -12,6 +12,7 @@ public class CarcasseAConstruire : MonoBehaviour {
     private int goX, goZ; // 1 ou -1
 
     private Materiau carcasse;
+    public GameObject Physic;
 
     public Materiau GetMateriau()
     {
@@ -61,7 +62,6 @@ public class CarcasseAConstruire : MonoBehaviour {
                 }
                    
             }
-            Debug.Log(_hit.collider.name);
         }
     }
 

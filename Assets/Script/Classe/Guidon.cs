@@ -11,4 +11,14 @@ public class Guidon : Materiau {
         m_Couleur = "Rouge";
     }
 
+    public string GetCouleur()
+    {
+        return m_Couleur;
+    }
+
+    public void SetCouleur(string p_NomCouleur)
+    {
+        m_Couleur = p_NomCouleur;
+    }
+
 }

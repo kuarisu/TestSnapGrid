@@ -11,4 +11,15 @@ public class Cadre : Materiau {
             m_Couleur = "Bleu";
         }
 
+    public string GetCouleur()
+    {
+        return m_Couleur;
+    }
+
+    public void SetCouleur(string p_NomCouleur)
+    {
+        m_Couleur = p_NomCouleur;
+    }
+
+
 }
