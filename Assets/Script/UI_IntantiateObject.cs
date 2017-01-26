@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_IntantiateObject : MonoBehaviour {
 
     public bool m_InfiniteObject;
     public GameObject m_ObjectToInstiate;
     public int m_NbOfObjectDispo;
+    public Text m_NbOfObjectText;
+
+    void Start()
+    {
+        ChangeText();
+    }
 
     public void LeftClick()
     {
@@ -16,6 +23,7 @@ public class UI_IntantiateObject : MonoBehaviour {
             if(m_NbOfObjectDispo > 0)
             {
                 m_NbOfObjectDispo--;
+                ChangeText();
                 InstantiateObject();
             }
         }
@@ -43,4 +51,12 @@ public class UI_IntantiateObject : MonoBehaviour {
         }    
 
     }
+
+    void ChangeText()
+    {
+        if (!m_InfiniteObject)
+            m_NbOfObjectText.text = "x " + m_NbOfObjectDispo;
+        else
+            m_NbOfObjectText.text = "Inf";
+    } 
 }

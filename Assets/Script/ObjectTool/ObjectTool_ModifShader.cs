@@ -44,6 +44,24 @@ public class ObjectTool_ModifShader : MonoBehaviour {
 
                     foreach (Transform child in m_MainVisual.transform)
                     {
+                        if(child.transform.childCount > 0)
+                        {
+                            foreach (Transform secondchild in child.transform)
+                            {
+                                if (secondchild.GetComponent<Renderer>() != null)
+                                {
+                                    m_MaterialsArray = secondchild.GetComponent<Renderer>().materials;
+
+                                    for (int i = 0; i < m_MaterialsArray.Length; i++)
+                                    {
+                                        m_MaterialsArray[i].SetFloat("_Pose", 0);
+                                        m_MaterialsArray[i].SetFloat("_Isclipping", 0);
+                                    }
+
+                                    secondchild.GetComponent<Renderer>().materials = m_MaterialsArray;
+                                }
+                            }
+                        }
                         if (child.GetComponent<Renderer>() != null)
                         {
                             m_MaterialsArray = child.GetComponent<Renderer>().materials;
@@ -62,8 +80,27 @@ public class ObjectTool_ModifShader : MonoBehaviour {
 
                 case ObjectToolState.CanBePlaced:
 
+
                     foreach (Transform child in m_MainVisual.transform)
                     {
+                        if (child.transform.childCount > 0)
+                        {
+                            foreach (Transform secondchild in child.transform)
+                            {
+                                if (secondchild.GetComponent<Renderer>() != null)
+                                {
+                                    m_MaterialsArray = secondchild.GetComponent<Renderer>().materials;
+
+                                    for (int i = 0; i < m_MaterialsArray.Length; i++)
+                                    {
+                                        m_MaterialsArray[i].SetFloat("_Pose", 1);
+                                        m_MaterialsArray[i].SetFloat("_Isclipping", 0);
+                                    }
+
+                                    secondchild.GetComponent<Renderer>().materials = m_MaterialsArray;
+                                }
+                            }
+                        }
                         if (child.GetComponent<Renderer>() != null)
                         {
                             m_MaterialsArray = child.GetComponent<Renderer>().materials;
@@ -82,8 +119,27 @@ public class ObjectTool_ModifShader : MonoBehaviour {
 
                 case ObjectToolState.CanNotBePlaced:
 
+
                     foreach (Transform child in m_MainVisual.transform)
                     {
+                        if (child.transform.childCount > 0)
+                        {
+                            foreach (Transform secondchild in child.transform)
+                            {
+                                if (secondchild.GetComponent<Renderer>() != null)
+                                {
+                                    m_MaterialsArray = secondchild.GetComponent<Renderer>().materials;
+
+                                    for (int i = 0; i < m_MaterialsArray.Length; i++)
+                                    {
+                                        m_MaterialsArray[i].SetFloat("_Pose", 1);
+                                        m_MaterialsArray[i].SetFloat("_Isclipping", 1);
+                                    }
+
+                                    secondchild.GetComponent<Renderer>().materials = m_MaterialsArray;
+                                }
+                            }
+                        }
                         if (child.GetComponent<Renderer>() != null)
                         {
                             m_MaterialsArray = child.GetComponent<Renderer>().materials;

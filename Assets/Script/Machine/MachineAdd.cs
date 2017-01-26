@@ -37,8 +37,6 @@ public class MachineAdd : MonoBehaviour {
             {
                 if (carcasse == null)
                 {
-                    Debug.Log("ok");
-
                     m_CarcasseGameObject = other.transform.root.gameObject;
                     carcasse = other.transform.root.GetComponent<CarcasseAConstruire>();
                     carcasse.Physic.SetActive(false);
@@ -49,7 +47,6 @@ public class MachineAdd : MonoBehaviour {
                 }
                 else
                 {
-                    Debug.Log("ok");
                     Destroy(carcasse.gameObject);
                     Destroy(other.gameObject);
                     carcasse = null;
@@ -63,6 +60,7 @@ public class MachineAdd : MonoBehaviour {
                     AAssembler = other.transform.root.GetComponent<CarcasseAConstruire>();
                     other.transform.root.GetComponent<CarcasseAConstruire>().SensDirection(0, 0);
                     other.transform.root.GetComponent<Rigidbody>().Sleep();
+                    other.transform.root.GetComponent<CarcasseAConstruire>().Physic.SetActive(false);
                     //other.GetComponent<Rigidbody>().useGravity = false;
                     other.enabled = false; //don't forget -> true
                 }
@@ -127,7 +125,6 @@ public class MachineAdd : MonoBehaviour {
                         }
                         break;
                     case "guidon":
-                        Debug.Log("ok");
                         if (((Velo)carcasse.GetMateriau()).GetGuidon() == null)
                         {
                             ((Velo)carcasse.GetMateriau()).SetGuidon((Guidon)AAssembler.GetMateriau());
@@ -147,7 +144,6 @@ public class MachineAdd : MonoBehaviour {
 
     private void DepartCarca()
     {
-        Debug.Log("hello");
         Destroy(AAssembler.gameObject);
         AAssembler = null;
         coll.enabled = false;
