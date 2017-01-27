@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 19651be31852c4d0f90e9e01b17e5726
+timeCreated: 1485526946
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Good night
+  fontNames:
+  - Good night
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

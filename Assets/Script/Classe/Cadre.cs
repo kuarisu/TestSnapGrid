@@ -8,7 +8,7 @@ public class Cadre : Materiau {
 
         public Cadre() : base("cadre")
         {
-            m_Couleur = "Bleu";
+            m_Couleur = "bleu";
         }
 
     public string GetCouleur()

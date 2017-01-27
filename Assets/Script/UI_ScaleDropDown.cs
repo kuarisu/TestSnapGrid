@@ -13,13 +13,13 @@ public class UI_ScaleDropDown : MonoBehaviour {
     public void Descale()
     {
         m_DargDown.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
-        m_DargDown.transform.localPosition = new Vector3(-18.9f, 18.6f, -91.3f);
+        m_DargDown.transform.localPosition = new Vector3(-18.9f, 18.6f, -26.9f);
     }
 
     public void Scale()
     {
         m_DargDown.transform.localScale = new Vector3(2,2,2);
-        m_DargDown.transform.localPosition = new Vector3(-18.9f, 36.3f, -91.3f);
+        m_DargDown.transform.localPosition = new Vector3(-18.9f, 36.3f, -26.9f);
     }
 
     public void ChangeEnable()

@@ -13,9 +13,27 @@ public class MachineIF : MonoBehaviour {
     private string op1, op1Type, op2, operateur;
     private object operandeVal;
 
-    private void Awake() //Voir pour le mettre dans une fonction à chaque fois que le joueur clique sur la liste pour changer l'opérateur et/ou l'opérande  
+    void Awake()
     {
+        op1 = "pedale";
+        ChangeOp();
+
+
+    }
+
+    public void SetOp1(string p_s)
+    {
+        op1 = p_s;
+    }
+
+    public void ChangeOp() //Voir pour le mettre dans une fonction à chaque fois que le joueur clique sur la liste pour changer l'opérateur et/ou l'opérande  
+    {
+
         op1 = m_Operende01.GetComponent<OperateurOperande>().GetOp();
+
+        if (op1 == null || op1 == "")
+            op1 = "pedale";
+
         switch (op1)
         {
             case "pedale":
@@ -46,47 +64,52 @@ public class MachineIF : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.tag.Equals("op"))
+        if (other.transform.root.tag.Equals("op"))
         {
-            op2 = other.GetComponent<OperateurOperande>().GetOp();
+            op2 = other.transform.root.GetComponent<OperateurOperande>().GetOp();
             switch (op2)
             {
                 case "0":
-                    NumVerifie(other.gameObject);
+                    NumVerifie(other.transform.root.gameObject);
                     break;
                 case "1":
-                    NumVerifie(other.gameObject);
+                    NumVerifie(other.transform.root.gameObject);
                     break;
                 case "2":
-                    NumVerifie(other.gameObject);
+                    NumVerifie(other.transform.root.gameObject);
                     break;
                 case "3":
-                    NumVerifie(other.gameObject);
+                    NumVerifie(other.transform.root.gameObject);
                     break;
                 case "4":
-                    NumVerifie(other.gameObject);
+                    NumVerifie(other.transform.root.gameObject);
                     break;
                 case "true":
-                    BoolVerifie(other.gameObject);
+                    BoolVerifie(other.transform.root.gameObject);
                     break;
                 case "false":
-                    BoolVerifie(other.gameObject);
+                    BoolVerifie(other.transform.root.gameObject);
                     break;
                 case "rouge":
-                    ColorVerifie(other.gameObject);
+                    ColorVerifie(other.transform.root.gameObject);
                     break;
                 case "bleu":
-                    ColorVerifie(other.gameObject);
+                    ColorVerifie(other.transform.root.gameObject);
                     break;
                 default:
-                    Poubelle(other.gameObject);
+                    Poubelle(other.transform.root.gameObject);
                     break;
             }
-        }else if(operandeVal != null)
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(!(other.transform.root.tag.Equals("op")) && operandeVal != null)
         {
-            CarcasseAConstruire AComparer = other.GetComponent<CarcasseAConstruire>();
+            CarcasseAConstruire AComparer = other.transform.root.GetComponent<CarcasseAConstruire>();
             if (AComparer.GetMateriau().GetTypeObj().Equals(op1) && op1.Equals("cadre"))
             {
                 CompareColorSimpleElement(AComparer, "cadre", (string)operandeVal);
@@ -102,17 +125,17 @@ public class MachineIF : MonoBehaviour {
                     //animation reussite
                 }else
                 {
-                    Poubelle(other.gameObject);
+                    Poubelle(other.transform.root.gameObject);
                 }
             }
             else
             {
-                Poubelle(other.gameObject);
+                Poubelle(other.transform.root.gameObject);
             }
         }
-        else
+        else if(!(other.transform.root.tag.Equals("op")))
         {
-            Poubelle(other.gameObject);
+            Poubelle(other.transform.root.gameObject);
         }
     }
 
@@ -160,7 +183,8 @@ public class MachineIF : MonoBehaviour {
 
     private void Poubelle(GameObject p_obj)
     {
-        Destroy(p_obj);
+        if(p_obj.transform.root.tag == "Object" || p_obj.transform.root.tag == "op")
+        Destroy(p_obj.transform.root.gameObject);
     }
     
     private void CompareColorSimpleElement(CarcasseAConstruire p_car, string p_type, string p_color)
@@ -190,7 +214,7 @@ public class MachineIF : MonoBehaviour {
 
     private bool CompareColorVelo(Velo p_velo, string p_type, string p_color)
     {
-        if (p_type.Equals("cadre"))
+        if (p_velo.GetCadre() != null && p_type.Equals("cadre"))
         {
             if (p_velo.GetCadre().m_Couleur.Equals(p_color))
             {
@@ -204,7 +228,7 @@ public class MachineIF : MonoBehaviour {
         }
         else if (p_type.Equals("guidon"))
         {
-            if (p_velo.GetGuidon().m_Couleur.Equals(p_color))
+            if (p_velo.GetGuidon() != null && p_velo.GetGuidon().m_Couleur.Equals(p_color))
             {
                 //animation reussite
                 return true;

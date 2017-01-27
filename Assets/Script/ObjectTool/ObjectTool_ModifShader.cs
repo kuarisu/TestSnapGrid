@@ -12,6 +12,7 @@ using UnityEngine;
 public class ObjectTool_ModifShader : MonoBehaviour {
 
     public ObjectToolState m_ObjectToolState;
+    public UI_IntantiateObject m_ScriptNb;
 
     //public GameObject m_ObjectWithShader;
     public GameObject m_MainVisual;
@@ -219,7 +220,7 @@ public class ObjectTool_ModifShader : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {      
-        if (m_ObjectToolState != ObjectToolState.CanNotBePlaced)
+        if (m_ObjectToolState != ObjectToolState.CanNotBePlaced && col.transform.tag != "MachineIf")
         {
             m_ObjectToolState = ObjectToolState.CanNotBePlaced;
         }

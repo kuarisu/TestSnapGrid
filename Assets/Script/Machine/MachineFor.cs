@@ -75,6 +75,8 @@ public class MachineFor : MonoBehaviour {
             {
                 for (int i = nbAssemblage - 1; i >= 0; i--)
                 {
+                    Debug.Log("hello");
+
                     Destroy(stockAConstruir[i].gameObject);
                     stockAConstruir.RemoveAt(i);
                 }

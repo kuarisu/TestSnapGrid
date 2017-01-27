@@ -51,18 +51,13 @@ public class MachineStart : MonoBehaviour {
     // Use this for initialization
     void Start () {
         timer = 0;
-        test = true;
+        test = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (!PlayerInfo.pause && test)
         {
-            if(timer < timerRef)
-            {
-                timer += Time.deltaTime;
-            }else
-            {
                 timer = 0;
                 SetXandZ();
                 GameObject carca = Instantiate(carcasseAttache);
@@ -71,7 +66,7 @@ public class MachineStart : MonoBehaviour {
                 carca.GetComponent<CarcasseAConstruire>().SensDirection(Xmove, Zmove);
                 carca.GetComponent<CarcasseAConstruire>().Active();
                 test = false;
-            }
+            
         }
 	}
 
@@ -80,5 +75,10 @@ public class MachineStart : MonoBehaviour {
         Xmove = this.GetComponent<Object_Rotation>().m_x;
         Zmove = this.GetComponent<Object_Rotation>().m_z;
         //Debug.Log(x + " " + z);
+    }
+
+    public void Spawn()
+    {
+        test = true;
     }
 }

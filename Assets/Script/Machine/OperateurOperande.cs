@@ -110,4 +110,33 @@ public class OperateurOperande : MonoBehaviour {
             }
         }
     }
+
+    public void ChangeObject()
+    {
+        if (m_DropDown != null)
+        {
+            switch (m_DropDown.GetComponent<UI_ScaleDropDownObject>().m_IndexOfOption)
+            {
+            
+                case 0:
+                    op = "pedale";
+                    break;
+                case 1:
+                    op = "selle";
+                    break;
+                case 2:
+                    op = "roue";
+                    break;
+                case 3:
+                    op = "cadre";
+                    break;
+                case 4:
+                    op = "guidon";
+                    break;
+            
+            }
+            this.GetComponentInChildren<MachineIF>().SetOp1(op);
+            this.GetComponentInChildren<MachineIF>().ChangeOp();
+        }
+    }
 }

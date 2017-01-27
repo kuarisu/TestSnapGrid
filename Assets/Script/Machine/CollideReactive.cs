@@ -8,6 +8,7 @@ public class CollideReactive : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        mach.enabled = true;
+        if(other.tag == "Col")
+            mach.enabled = true;
     }
 }

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 9b1caceec43203a4bbfdf461429d0a14
+timeCreated: 1485511625
+licenseType: Pro
+ShaderImporter:
+  defaultTextures:
+  - _confettitexture: {fileID: 2800000, guid: 283b336d93ee297498ccf9bb5258e4d0, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

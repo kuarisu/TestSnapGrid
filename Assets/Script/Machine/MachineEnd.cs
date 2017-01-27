@@ -98,39 +98,43 @@ public class MachineEnd : MonoBehaviour {
                     objectif[rangG] = true;
                 }
             }
-        }
 
-        
-        bool objectifFini = true;
-        for(int i = 0; i < objectif.Length; i++)
-        {
-            if (!objectif[i])
+
+
+            bool objectifFini = true;
+            for (int i = 0; i < objectif.Length; i++)
             {
-                objectifFini = false;
-                break;
+                if (!objectif[i])
+                {
+                    objectifFini = false;
+                    break;
+                }
+            }
+
+            if (objectifFini)
+            {
+                nbIncremente++;
+            }
+            for (int i = 0; i < objectif.Length; i++)
+            {
+                objectif[i] = false;
+            }
+
+            Debug.Log("hello");
+
+            Destroy(other.gameObject); // velo reussit
+
+            if (nbIncremente == nombre)
+            {
+                //niveau suivant
             }
         }
-
-        if (objectifFini)
-        {
-            nbIncremente++;
-        }
-        for (int i = 0; i < objectif.Length; i++)
-        {
-            objectif[i] = false;
-        }
-
-        Destroy(other.gameObject); // velo reussit
-
-        if(nbIncremente == nombre)
-        {
-            //niveau suivant
-        }
-
     }
 
     private void poubelle(GameObject obj)
     {
+        Debug.Log("hello");
+
         Destroy(obj);
     }
 

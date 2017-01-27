@@ -8,7 +8,7 @@ public class Guidon : Materiau {
 
     public Guidon() : base("guidon")
     {
-        m_Couleur = "Rouge";
+        m_Couleur = "rouge";
     }
 
     public string GetCouleur()

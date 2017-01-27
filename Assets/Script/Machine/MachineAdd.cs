@@ -14,6 +14,8 @@ public class MachineAdd : MonoBehaviour {
     public Collider coll;
     Object_Rotation m_ObjectRotationValues;
 
+    public Collider coll2;
+
     // Use this for initialization
     void Start () {
         move = new Vector3();
@@ -33,13 +35,16 @@ public class MachineAdd : MonoBehaviour {
         Zdir = m_ObjectRotationValues.m_z;
         if (other.transform.root.tag == "Object")
         {
+            Debug.Log("ccccccccc");
             if (other.transform.root.GetComponent<CarcasseAConstruire>() != null && other.transform.root.GetComponent<CarcasseAConstruire>().GetMateriau().GetTypeObj().Equals("velo"))
             {
+                Debug.Log("bbbbbbbbbb");
                 if (carcasse == null)
                 {
+                    Debug.Log("kaaaaaaaa");
                     m_CarcasseGameObject = other.transform.root.gameObject;
                     carcasse = other.transform.root.GetComponent<CarcasseAConstruire>();
-                    carcasse.Physic.SetActive(false);
+                    //carcasse.Physic.SetActive(false);
                     other.transform.root.GetComponent<CarcasseAConstruire>().SensDirection(0, 0);
                     other.transform.root.GetComponent<Rigidbody>().Sleep();
                     //other.GetComponent<Rigidbody>().useGravity = false;
@@ -47,6 +52,8 @@ public class MachineAdd : MonoBehaviour {
                 }
                 else
                 {
+                    Debug.Log("hello");
+
                     Destroy(carcasse.gameObject);
                     Destroy(other.gameObject);
                     carcasse = null;
@@ -55,17 +62,20 @@ public class MachineAdd : MonoBehaviour {
             }
             else
             {
+                Debug.Log("eeeeeeeee");
                 if (AAssembler == null)
                 {
                     AAssembler = other.transform.root.GetComponent<CarcasseAConstruire>();
                     other.transform.root.GetComponent<CarcasseAConstruire>().SensDirection(0, 0);
                     other.transform.root.GetComponent<Rigidbody>().Sleep();
-                    other.transform.root.GetComponent<CarcasseAConstruire>().Physic.SetActive(false);
+                    //other.transform.root.GetComponent<CarcasseAConstruire>().Physic.SetActive(false);
                     //other.GetComponent<Rigidbody>().useGravity = false;
                     other.enabled = false; //don't forget -> true
                 }
                 else
                 {
+                    Debug.Log("hello");
+
                     Destroy(AAssembler.gameObject);
                     Destroy(other.gameObject);
                     AAssembler = null;
@@ -73,10 +83,10 @@ public class MachineAdd : MonoBehaviour {
             }
             if (carcasse != null && AAssembler != null)
             {
-                
+                Debug.Log("jhsqdkjhdsqkjdhs");
                 move.Set(Xdir * PlayerInfo.vitesse * Time.deltaTime, 0, Xdir * PlayerInfo.vitesse * Time.deltaTime);
 
-                Debug.Log(AAssembler.GetMateriau().GetTypeObj());
+
                 switch (AAssembler.GetMateriau().GetTypeObj())
                 {
 
@@ -147,15 +157,26 @@ public class MachineAdd : MonoBehaviour {
         Destroy(AAssembler.gameObject);
         AAssembler = null;
         coll.enabled = false;
-        carcasse.Physic.SetActive(true);
+        //carcasse.Physic.SetActive(true);
+        carcasse.transform.GetChild(1).GetChild(0).GetComponent<Collider>().enabled = true;
         m_CarcasseGameObject.GetComponent<Rigidbody>().WakeUp();
         //carcasse.GetComponent<Rigidbody>().useGravity = true;
         carcasse.SensDirection(Xdir, Zdir);
         carcasse = null;
+        //StartCoroutine(Yolo());
     }
 
+
+     /*IEnumerator Yolo()
+    {
+        yield return new WaitForSeconds(0.75f);
+        coll.enabled = true;
+        yield break;
+    }*/
     private void AssemblageEnTrop()
     {
+        Debug.Log("hello");
+
         Destroy(carcasse.gameObject);
         Destroy(AAssembler.gameObject);
     }

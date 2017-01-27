@@ -28,7 +28,6 @@ public class Velo : Materiau
 
     public void SetSelle(bool p_selle)
     {
-        if(selle)
         selle = p_selle;
     }
 
