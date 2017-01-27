@@ -39,8 +39,6 @@ public class UI_ScaleDropDown : MonoBehaviour {
 
             _i++;
         }
-
-        this.transform.root.GetComponent<OperateurOperande>().ChangeOpOperateur();
     }
 
 }

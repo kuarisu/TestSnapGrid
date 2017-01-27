@@ -22,6 +22,7 @@ public class CarcasseAConstruire : MonoBehaviour {
     private void Awake()
     {
         isActive = false;
+        Debug.Log(carcasse);
         rigi = GetComponent<Rigidbody>();
         direction = new Vector3();
         vitesse = PlayerInfo.vitesse;

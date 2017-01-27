@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Choix
+{
+    Velo,
+    Pedale,
+    Selle,
+    Roue,
+    Cadre,
+    Guidon
+}
+
 public class MachineStart : MonoBehaviour {
 
-    public enum Choix
-    {
-        Velo,
-        Pedale,
-        Selle,
-        Roue,
-        Cadre,
-        Guidon
-    }
+
 
 
     public Choix choix;     
@@ -24,7 +26,7 @@ public class MachineStart : MonoBehaviour {
     public int Xmove, Zmove;
     private bool test;
 
-    private Materiau typeVehicule()
+    public Materiau typeVehicule()
     {
         switch (choix)
         {
@@ -64,7 +66,7 @@ public class MachineStart : MonoBehaviour {
                 timer = 0;
                 SetXandZ();
                 GameObject carca = Instantiate(carcasseAttache);
-                carca.transform.position = transform.GetChild(0).transform.position;
+                carca.transform.position = this.transform.position + new Vector3(0,1,0);
                 carca.GetComponent<CarcasseAConstruire>().SetVehicule(typeVehicule());
                 carca.GetComponent<CarcasseAConstruire>().SensDirection(Xmove, Zmove);
                 carca.GetComponent<CarcasseAConstruire>().Active();
